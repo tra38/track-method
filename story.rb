@@ -14,7 +14,7 @@ end
 
 def add_line_breaks(array)
   array.map do |paragraph|
-    paragraph.split("\n").join("\n\n")
+    paragraph.gsub("\n", "\n\n")
   end
 end
 
@@ -29,7 +29,7 @@ track = [{ state: "Frankenisten_Destroyer_Propaganda", array: fd_propaganda}, { 
 # set up blank story
 story = []
 
-story << "---Introduction---"
+story << "---Introduction---\n\n"
 
 number_of_rounds = 4
 
@@ -37,13 +37,13 @@ number_of_rounds.times do |round|
   number_of_checkpoints = track.length
   number_of_checkpoints.times do |checkpoint_index|
     checkpoint = track[checkpoint_index]
-    story << "We are now entering the #{checkpoint[:state]} state."
+    story << "We are now entering the #{checkpoint[:state]} state.\n\n"
     story << checkpoint[:array].pop
-    story << "-----Filler----"
+    story << "-----Filler----\n\n"
     story
   end
 end
 
 story << "---Conclusion---"
 
-puts story.join("\n")
+puts story.join
