@@ -8,15 +8,20 @@ def extract_paragraphs(hash)
   hash.keys.each do |key|
     array << hash[key]["Paragraphs"]
   end
-  array.flatten.shuffle
+  new_array = array.flatten.shuffle
+  add_line_breaks(new_array)
+end
+
+def add_line_breaks(array)
+  array.map do |paragraph|
+    paragraph.split("\n").join("\n\n")
+  end
 end
 
 fd_propaganda = extract_paragraphs(information["Frankenisten_Destroyer_Propaganda"])
 pro_tech_propaganda = extract_paragraphs(information["Pro_Tech_Propaganda"])
 missions = extract_paragraphs(information["Missions"])
 backstories = extract_paragraphs(information["Worldbuilding"])
-
-p backstories.length
 
 # Set Up Track
 track = [{ state: "Frankenisten_Destroyer_Propaganda", array: fd_propaganda}, { state: "Pro_Tech_Propaganda", array: pro_tech_propaganda }, { state: "Missions", array: missions }, { state: "Worldbuilding", array: backstories }]
@@ -41,4 +46,4 @@ end
 
 story << "---Conclusion---"
 
-puts story
+puts story.join("\n")
